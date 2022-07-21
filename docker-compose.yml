@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  php-apache-environment:
+    container_name: php-apache
+    build: .
+    image: web-app
+    volumes:
+      - ./:/var/www/html/
+    environment:
+        MYSQL_ROOT_PASSWORD: q123
+        MYSQL_DATABASE: login
+        MYSQL_USER: laadi
+        MYSQL_PASSWORD: q123
+    ports:
+      - 8000:80
+  dbdata:
+    container_name: db
+    image: mysql
+    volumes:
+     - ./data/:/docker-entrypoint-initdb.d/
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: q123
+        MYSQL_DATABASE: login
+        MYSQL_USER: laadi
+        MYSQL_PASSWORD: q123
+    ports:
+        - "3333:3306"
